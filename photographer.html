@@ -22,6 +22,33 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         <img class="photograph-header-image" id="photograph-header-image" alt="">
     </div>
+
+    <div class="section-filter">
+        <div class="d-flex align-items-center">
+            <label for="filter-order">Trier par</label>
+            <select class="ms-2" id="filter-order">
+                <option value="fame">Popularité</option>
+                <option value="date">Date</option>
+                <option value="title">Titre</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="section-gallery">
+
+<!--        <div class="gallery-item">-->
+<!--            <img src="http://localhost/fisheye/assets/photographers/Marcel/Architecture_Dome.jpg" alt="">-->
+<!--            <div class="gallery-item-informations">-->
+<!--                <h5>Titre ici</h5>-->
+<!--                <div class="gallery-item-likes">-->
+<!--                    <span class="counter">44</span>-->
+<!--                    <img src="assets/icons/like.svg" alt="likes">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+    </div>
+
 </main>
 <div id="contact_modal">
     <div class="modal">
@@ -38,9 +65,8 @@
         </form>
     </div>
 </div>
+<script src="scripts/factories/photo.js"></script>
 <script src="/scripts/utils/contactForm.js"></script>
 <script src="scripts/pages/photographer.js"></script>
-<!-- TODO -->
-<!--https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get-->
 </body>
 </html>

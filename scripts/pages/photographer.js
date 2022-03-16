@@ -31,6 +31,28 @@ async function getPhotographer(id) {
 }
 
 /**
+ * Fonction pour récupérer les photos à partir d'un json
+ * @returns {Promise<{photographers: ({country: string, city: string, price: number, name: string, tagline: string, id: number, portrait: string}|{country: string, city: string, price: number, name: string, tagline: string, id: number, portrait: string})[]}>}
+ */
+async function getPhotos() {
+
+    // Penser à remplacer par les données récupérées dans le json
+    let photos = [];
+
+    await fetch('http://localhost/fisheye/data/photographers.json')
+        .then(response => response.json())
+        .then(function (data){
+            photos = data.media;
+        });
+
+    // et bien retourner le tableau photographers seulement une fois
+    return ({
+        photos: [...photos]
+    })
+
+}
+
+/**
  * Récupère les valeurs des photographes via Json et les affiche
  * @param photographer
  * @returns {Promise<void>}
@@ -41,6 +63,19 @@ async function displayData(photographer) {
     document.getElementById('photograph-header-localisation').innerHTML = photographer.city + ', ' + photographer.country;
     document.getElementById('photograph-header-slogan').innerHTML = photographer.tagline;
     document.getElementById('photograph-header-image').setAttribute('src', 'assets/photographers/'+photographer.portrait);
+
+    // Récupère la liste des photos et affiches celle du photographe courant
+    const photosSection = document.querySelector(".section-gallery");
+
+    const {photos} = await getPhotos();
+
+    photos.forEach((photo) => {
+        if(photo.photographerId === photographer.id){
+            const photoModel = photoFactory(photo);
+            const photoCardDOM = photoModel.getPhotoCardDOM();
+            photosSection.appendChild(photoCardDOM);
+        }
+    });
 
     // const photographerSection = document.querySelector(".photographer_section");
     // const photographerModel = photographerFactory(photographer);
