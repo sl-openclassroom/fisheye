@@ -1,16 +1,33 @@
 function photoFactory(data) {
 
-    const { id, photographerId, title, image, likes, date, price } = data;
+    const { id, photographerId, title, image, video, likes, date, price } = data;
 
-    const picture = `assets/photographers/${photographerId}/${image}`;
+    const mediaImage = `assets/photographers/${photographerId}/${image}`;
+    const mediaVideo = `assets/photographers/${photographerId}/${video}`;
 
     function getPhotoCardDOM() {
 
         const item = document.createElement( 'div' );
         item.setAttribute('class', 'gallery-item');
 
-        const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
+        console.log(video);
+
+        let media = document.createElement( 'img' );
+        media.setAttribute("src", mediaImage)
+
+        if(video != null){
+            const source = document.createElement( 'source' );
+            source.setAttribute("src", mediaVideo);
+            source.setAttribute("type", "video/mp4")
+
+            media = document.createElement( 'video' );
+            media.setAttribute("playsinline", "");
+            media.setAttribute("autoplay", "");
+            media.setAttribute("muted", "");
+            media.setAttribute("loop", "");
+            media.appendChild(source);
+        }
+
 
         const informations = document.createElement( 'div' );
         informations.setAttribute('class', 'gallery-item-informations');
@@ -34,7 +51,7 @@ function photoFactory(data) {
         divlikes.appendChild(imglike);
         informations.appendChild(h5);
         informations.appendChild(divlikes);
-        item.appendChild(img);
+        item.appendChild(media);
         item.appendChild(informations);
 
         return (item);

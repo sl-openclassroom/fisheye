@@ -90,16 +90,16 @@ a{
 .section-gallery{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin: 0 100px;
 }
 
 .gallery-item {
     width: 32%;
     margin-bottom: 15px;
+    padding: 5px;
 }
 
-.gallery-item > img {
+.gallery-item > img, .gallery-item > video {
     width: 100%;
     height: 300px;
     object-fit: cover;
@@ -129,6 +129,25 @@ a{
     width: 20px;
     margin-left: 7px;
 }
+
+/* GLOBAL INFORMATION */
+#global-information{
+    position: fixed;
+    bottom: 0;
+    right: 40px;
+    width: 200px;
+    background: #DB8876;
+    border-radius: 10px 10px 0 0;
+    padding: 14px 25px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+#global-information img{
+    width: 15px;
+}
+
 
 /* GENERALE CLASS */
 .d-flex{

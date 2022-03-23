@@ -45,6 +45,8 @@ async function getPhotos() {
             photos = data.media;
         });
 
+
+
     // et bien retourner le tableau photographers seulement une fois
     return ({
         photos: [...photos]
@@ -63,24 +65,25 @@ async function displayData(photographer) {
     document.getElementById('photograph-header-localisation').innerHTML = photographer.city + ', ' + photographer.country;
     document.getElementById('photograph-header-slogan').innerHTML = photographer.tagline;
     document.getElementById('photograph-header-image').setAttribute('src', 'assets/photographers/'+photographer.portrait);
+    document.getElementById('photograph-price').innerHTML = photographer.price;
 
     // Récupère la liste des photos et affiches celle du photographe courant
     const photosSection = document.querySelector(".section-gallery");
 
     const {photos} = await getPhotos();
 
+    let count = 0;
+
     photos.forEach((photo) => {
         if(photo.photographerId === photographer.id){
+            count += photo.likes;
             const photoModel = photoFactory(photo);
             const photoCardDOM = photoModel.getPhotoCardDOM();
             photosSection.appendChild(photoCardDOM);
         }
     });
 
-    // const photographerSection = document.querySelector(".photographer_section");
-    // const photographerModel = photographerFactory(photographer);
-    // const userCardDOM = photographerModel.getUserCardDOM();
-    // photographerSection.appendChild(userCardDOM);
+    document.getElementById('photograph-likes').innerHTML = count;
 
 }
 
