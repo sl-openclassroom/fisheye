@@ -9,8 +9,9 @@ function photoFactory(data) {
 
         const item = document.createElement( 'div' );
         item.setAttribute('class', 'gallery-item');
-
-        console.log(video);
+        item.setAttribute('data-title', title);
+        item.setAttribute('data-likes', likes);
+        item.setAttribute('data-date', date);
 
         let media = document.createElement( 'img' );
         media.setAttribute("src", mediaImage)

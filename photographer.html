@@ -26,8 +26,9 @@
     <div class="section-filter">
         <div class="d-flex align-items-center">
             <label for="filter-order">Trier par</label>
-            <select class="ms-2" id="filter-order">
-                <option value="fame">Popularité</option>
+            <select class="ms-2" id="filter-order" onchange="sortSectionGallery()">
+                <option disabled selected>-- tri --</option>
+                <option value="likes">Popularité</option>
                 <option value="date">Date</option>
                 <option value="title">Titre</option>
             </select>

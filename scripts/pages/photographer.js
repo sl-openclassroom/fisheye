@@ -99,4 +99,23 @@ async function init() {
 
 }
 
+function sortSectionGallery(){
+
+    var sortValue = document.getElementById("filter-order").value;
+
+    var items = document.querySelectorAll('.gallery-item');
+
+    [].slice.call(items).sort(function(a, b) {
+        var textA = a.getAttribute('data-'+sortValue);
+        var textB = b.getAttribute('data-'+sortValue);
+        if(sortValue == 'likes'){
+            return (parseInt(textA) < parseInt(textB)) ? -1 : (parseInt(textA) > parseInt(textB)) ? 1 : 0;
+        } else {
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        }
+
+    }).forEach(function(el) {el.parentNode.appendChild(el)});
+
+}
+
 init();
