@@ -46,6 +46,8 @@ function photoFactory(data) {
         const imglike = document.createElement( 'img' );
         imglike.setAttribute("src", 'assets/icons/like.svg')
         imglike.setAttribute('alt', 'likes');
+        imglike.setAttribute('class', 'btn-like');
+        imglike.setAttribute('data-like', '1');
 
 
         divlikes.appendChild(counter);

@@ -118,4 +118,33 @@ function sortSectionGallery(){
 
 }
 
+window.onload = function() {
+
+    var likes = document.getElementsByClassName("btn-like");
+
+    var likeAction = function() {
+        var count = parseInt(this.getAttribute("data-like"));
+        var total = parseInt(document.getElementById("photograph-likes").innerHTML);
+
+        if(count===1){
+            document.getElementById("photograph-likes").innerHTML = total+1;
+            this.setAttribute('data-like', 0);
+            this.setAttribute('src', 'assets/icons/unlike.svg');
+        } else {
+            document.getElementById("photograph-likes").innerHTML = total-1;
+            this.setAttribute('data-like', 1);
+            this.setAttribute('src', 'assets/icons/like.svg');
+        }
+
+    };
+
+    for (var i = 0; i < likes.length; i++) {
+        likes[i].addEventListener('click', likeAction, false);
+    }
+
+}
+
+
+
+
 init();
