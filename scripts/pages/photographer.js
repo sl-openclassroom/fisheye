@@ -123,15 +123,20 @@ window.onload = function() {
     var likes = document.getElementsByClassName("btn-like");
 
     var likeAction = function() {
+
         var count = parseInt(this.getAttribute("data-like"));
+        var id = this.getAttribute("data-id");
         var total = parseInt(document.getElementById("photograph-likes").innerHTML);
+        var current = parseInt(document.getElementById("like-"+id).innerHTML);
 
         if(count===1){
             document.getElementById("photograph-likes").innerHTML = total+1;
+            document.getElementById("like-"+id).innerHTML = current+1;
             this.setAttribute('data-like', 0);
             this.setAttribute('src', 'assets/icons/unlike.svg');
         } else {
             document.getElementById("photograph-likes").innerHTML = total-1;
+            document.getElementById("like-"+id).innerHTML = current-1;
             this.setAttribute('data-like', 1);
             this.setAttribute('src', 'assets/icons/like.svg');
         }

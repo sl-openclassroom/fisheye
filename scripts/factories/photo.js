@@ -41,6 +41,7 @@ function photoFactory(data) {
 
         const counter = document.createElement( 'span' );
         counter.setAttribute('class', 'counter');
+        counter.setAttribute('id', 'like-'+id);
         counter.textContent = likes;
 
         const imglike = document.createElement( 'img' );
@@ -48,6 +49,7 @@ function photoFactory(data) {
         imglike.setAttribute('alt', 'likes');
         imglike.setAttribute('class', 'btn-like');
         imglike.setAttribute('data-like', '1');
+        imglike.setAttribute('data-id', id);
 
 
         divlikes.appendChild(counter);
