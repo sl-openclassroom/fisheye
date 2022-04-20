@@ -14,7 +14,9 @@ function photoFactory(data) {
         item.setAttribute('data-date', date);
 
         let media = document.createElement( 'img' );
-        media.setAttribute("src", mediaImage)
+        media.setAttribute("src", mediaImage);
+        media.setAttribute("class", 'gallery-item-img');
+        media.setAttribute("data-title", title);
 
         if(video != null){
             const source = document.createElement( 'source' );

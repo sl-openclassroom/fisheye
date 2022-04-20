@@ -120,6 +120,7 @@ function sortSectionGallery(){
 
 window.onload = function() {
 
+    // GESTION DES CLICKS SUR LES LIKES
     var likes = document.getElementsByClassName("btn-like");
 
     var likeAction = function() {
@@ -143,8 +144,22 @@ window.onload = function() {
 
     };
 
+    // GESTION DES CLICKS SUR LES IMAGES POUR LOUVERTURE DE LA GALLERY
     for (var i = 0; i < likes.length; i++) {
         likes[i].addEventListener('click', likeAction, false);
+    }
+
+    var imgs = document.getElementsByClassName("gallery-item-img");
+    let modal = document.getElementById("gallery_modal");
+
+    for (var y = 0; y < imgs.length; y++) {
+
+        imgs[y].onclick = function () {
+            document.getElementById("gallery-img").src = this.getAttribute('src');
+            document.getElementById("gallery-title").innerHTML = this.getAttribute('data-title');
+            modal.style.display = "flex";
+        }
+
     }
 
 }
