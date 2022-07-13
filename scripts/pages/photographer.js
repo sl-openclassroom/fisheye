@@ -17,7 +17,7 @@ async function getPhotographer(id) {
 
     let photographer = null;
 
-    for (var item in photographers) {
+    for (let item in photographers) {
         if(id == photographers[item]['id']){
             photographer = photographers[item];
         }
@@ -65,6 +65,7 @@ async function displayData(photographer) {
     document.getElementById('photograph-header-localisation').innerHTML = photographer.city + ', ' + photographer.country;
     document.getElementById('photograph-header-slogan').innerHTML = photographer.tagline;
     document.getElementById('photograph-header-image').setAttribute('src', 'assets/photographers/'+photographer.portrait);
+    document.getElementById('photograph-header-image').setAttribute('alt', photographer.name);
     document.getElementById('photograph-price').innerHTML = photographer.price;
 
     // Récupère la liste des photos et affiches celle du photographe courant
@@ -73,13 +74,15 @@ async function displayData(photographer) {
     const {photos} = await getPhotos();
 
     let count = 0;
+    let position = 1;
 
     photos.forEach((photo) => {
         if(photo.photographerId === photographer.id){
             count += photo.likes;
-            const photoModel = photoFactory(photo);
+            const photoModel = photoFactory(photo, position);
             const photoCardDOM = photoModel.getPhotoCardDOM();
             photosSection.appendChild(photoCardDOM);
+            position += 1;
         }
     });
 
@@ -101,13 +104,13 @@ async function init() {
 
 function sortSectionGallery(){
 
-    var sortValue = document.getElementById("filter-order").value;
+    let sortValue = document.getElementById("filter-order").value;
 
-    var items = document.querySelectorAll('.gallery-item');
+    let items = document.querySelectorAll('.gallery-item');
 
     [].slice.call(items).sort(function(a, b) {
-        var textA = a.getAttribute('data-'+sortValue);
-        var textB = b.getAttribute('data-'+sortValue);
+        let textA = a.getAttribute('data-'+sortValue);
+        let textB = b.getAttribute('data-'+sortValue);
         if(sortValue == 'likes'){
             return (parseInt(textA) < parseInt(textB)) ? -1 : (parseInt(textA) > parseInt(textB)) ? 1 : 0;
         } else {
@@ -116,55 +119,77 @@ function sortSectionGallery(){
 
     }).forEach(function(el) {el.parentNode.appendChild(el)});
 
+
 }
 
 window.onload = function() {
 
     // GESTION DES CLICKS SUR LES LIKES
-    var likes = document.getElementsByClassName("btn-like");
+    let likes = document.getElementsByClassName("btn-like");
 
-    var likeAction = function() {
+    let likeAction = function() {
 
-        var count = parseInt(this.getAttribute("data-like"));
-        var id = this.getAttribute("data-id");
-        var total = parseInt(document.getElementById("photograph-likes").innerHTML);
-        var current = parseInt(document.getElementById("like-"+id).innerHTML);
+        let count = parseInt(this.getAttribute("data-like"));
+        let id = this.getAttribute("data-id");
+        let total = parseInt(document.getElementById("photograph-likes").innerHTML);
+        let current = parseInt(document.getElementById("like-"+id).innerHTML);
+        let img = this.getElementsByTagName('img')[0];
 
         if(count===1){
             document.getElementById("photograph-likes").innerHTML = total+1;
             document.getElementById("like-"+id).innerHTML = current+1;
             this.setAttribute('data-like', 0);
-            this.setAttribute('src', 'assets/icons/unlike.svg');
+            img.setAttribute('src', 'assets/icons/unlike.svg');
         } else {
             document.getElementById("photograph-likes").innerHTML = total-1;
             document.getElementById("like-"+id).innerHTML = current-1;
             this.setAttribute('data-like', 1);
-            this.setAttribute('src', 'assets/icons/like.svg');
+            img.setAttribute('src', 'assets/icons/like.svg');
         }
 
     };
 
-    // GESTION DES CLICKS SUR LES IMAGES POUR LOUVERTURE DE LA GALLERY
-    for (var i = 0; i < likes.length; i++) {
+    for (let i = 0; i < likes.length; i++) {
         likes[i].addEventListener('click', likeAction, false);
-    }
-
-    var imgs = document.getElementsByClassName("gallery-item-img");
-    let modal = document.getElementById("gallery_modal");
-
-    for (var y = 0; y < imgs.length; y++) {
-
-        imgs[y].onclick = function () {
-            document.getElementById("gallery-img").src = this.getAttribute('src');
-            document.getElementById("gallery-title").innerHTML = this.getAttribute('data-title');
-            modal.style.display = "flex";
-        }
-
     }
 
 }
 
 
+function openGallery(object){
 
+    let img = object.getElementsByTagName('img')[0];
+    let modal = document.getElementById("gallery_modal");
+
+    if(img.getAttribute('data-type') == 'img'){
+        document.getElementById("gallery-video").classList.add('d-none');
+        document.getElementById("gallery-img").classList.remove('d-none');
+        document.getElementById("gallery-img").src = img.getAttribute('src');
+    } else {
+        document.getElementById("gallery-img").classList.add('d-none');
+        document.getElementById("gallery-video").classList.remove('d-none');
+        document.getElementById("gallery-video").src = img.getAttribute('src');
+    }
+
+    document.getElementById("gallery-title").innerHTML = img.getAttribute('data-title');
+    document.getElementById("gallery-previous").setAttribute('src-current', img.getAttribute('data-position'));
+    document.getElementById("gallery-next").setAttribute('src-current', img.getAttribute('data-position'));
+    modal.style.display = "flex";
+
+}
+
+document.onkeydown = (e) => {
+    e = e || window.event;
+    if (e.keyCode === 37) {
+        document.getElementById('gallery-previous').click();
+    } else if (e.keyCode === 39) {
+        document.getElementById('gallery-next').click();
+    } else if (e.keyCode === 27) {
+        document.getElementById('gallery-close').click();
+        document.getElementById('contact_modal_close').click();
+    } else if (e.keyCode === 13) {
+        document.getElementById('contact_modal_send').click();
+    }
+}
 
 init();

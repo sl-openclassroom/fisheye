@@ -10,20 +10,21 @@
 </head>
 <body>
 <header>
-    <a href="index.html"><img src="assets/images/logo.png" class="logo"/></a>
+    <a href="index.html"><img src="assets/images/logo.png" alt="Logo fisheye" class="logo"/></a>
 </header>
 <main id="main">
-    <div class="photograph-header">
+
+    <section class="photograph-header">
         <div class="photograph-header-information">
             <h1 class="photograph-header-name" id="photograph-header-name"></h1>
             <div class="photograph-header-localisation" id="photograph-header-localisation"></div>
             <div class="photograph-header-slogan" id="photograph-header-slogan"></div>
         </div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" onclick="displayModal();document.getElementById('form_firstname').focus();">Contactez-moi</button>
         <img class="photograph-header-image" id="photograph-header-image" alt="">
-    </div>
+    </section>
 
-    <div class="section-filter">
+    <section class="section-filter">
         <div class="d-flex align-items-center">
             <label for="filter-order">Trier par</label>
             <select class="ms-2" id="filter-order" onchange="sortSectionGallery()">
@@ -33,25 +34,10 @@
                 <option value="title">Titre</option>
             </select>
         </div>
-    </div>
+    </section>
 
-    <div class="section-gallery">
-
-<!--        <div class="gallery-item" >-->
-<!--            <img src="http://localhost/fisheye/assets/photographers/Marcel/Architecture_Dome.jpg" alt="">-->
-<!--            <video playsinline="" autoplay="" muted="" loop="">-->
-<!--                <source src="https://www.upassion.fr/public/video/bgvideo.mp4" type="video/mp4">-->
-<!--            </video>-->
-<!--            <div class="gallery-item-informations">-->
-<!--                <h5>Titre ici</h5>-->
-<!--                <div class="gallery-item-likes">-->
-<!--                    <span class="counter">44</span>-->
-<!--                    <img src="assets/icons/like.svg" alt="likes">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-    </div>
+    <section class="section-gallery" aria-label="Section gallery">
+    </section>
 
     <div id="global-information">
         <div class="div-count">
@@ -67,14 +53,28 @@
     <div class="modal">
         <header>
             <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()"/>
+            <button class="light-button" id="contact_modal_close" aria-label="Close modal button" onclick="closeModal()">
+                <img src="assets/icons/close.svg"/>
+            </button>
         </header>
         <form>
             <div>
-                <label>Prénom</label>
-                <input/>
+                <label for="form_firstname">Prénom</label>
+                <input type="text" id="form_firstname">
             </div>
-            <button class="contact_button">Envoyer</button>
+            <div>
+                <label for="form_lastname">Nom</label>
+                <input type="text" id="form_lastname">
+            </div>
+            <div>
+                <label for="form_email">Email</label>
+                <input type="email" id="form_email">
+            </div>
+            <div>
+                <label for="form_message">Votre message</label>
+                <textarea name="" id="form_message" cols="30" rows="10"></textarea>
+            </div>
+            <button type="button" id="contact_modal_send" class="contact_button" onclick="send()">Envoyer</button>
         </form>
     </div>
 </div>
@@ -82,18 +82,20 @@
 <div id="gallery_modal">
     <div id="gallery-container">
         <div id="gallery-content">
-            <img src="http://localhost/fisheye/assets/photographers/930/sport_water_tunnel.jpg" id="gallery-img" alt="">
-            <div id="gallery-title">The title</div>
+            <video playsinline="" id="gallery-video" autoplay="" muted="" loop="">
+            </video>
+            <img src="" id="gallery-img" alt="">
+            <div id="gallery-title"></div>
         </div>
-        <span id="gallery-previous">
-            <img class="icons" src="assets/icons/left.svg" alt="">
-        </span>
-        <span id="gallery-next">
-            <img class="icons" src="assets/icons/right.svg" alt="">
-        </span>
-        <span id="gallery-close">
+        <button class="light-button" aria-label="Gallery button close" id="gallery-close">
             <img class="icons" src="assets/icons/cancel.svg" alt="">
-        </span>
+        </button>
+        <button class="light-button" aria-label="Gallery button previous" id="gallery-previous">
+            <img class="icons" src="assets/icons/left.svg" alt="">
+        </button>
+        <button class="light-button" aria-label="Gallery button next" id="gallery-next">
+            <img class="icons" src="assets/icons/right.svg" alt="">
+        </button>
     </div>
 </div>
 

@@ -1,4 +1,4 @@
-function photoFactory(data) {
+function photoFactory(data, position) {
 
     const { id, photographerId, title, image, video, likes, date, price } = data;
 
@@ -13,10 +13,18 @@ function photoFactory(data) {
         item.setAttribute('data-likes', likes);
         item.setAttribute('data-date', date);
 
+        let button = document.createElement( 'button' );
+        button.setAttribute('class', 'light-button');
+        button.setAttribute('aria-label', title);
+        button.setAttribute('onclick', 'openGallery(this)');
+
         let media = document.createElement( 'img' );
         media.setAttribute("src", mediaImage);
         media.setAttribute("class", 'gallery-item-img');
+        media.setAttribute("alt", title);
         media.setAttribute("data-title", title);
+        media.setAttribute("data-type", 'img');
+        media.setAttribute("data-position", position);
 
         if(video != null){
             const source = document.createElement( 'source' );
@@ -28,6 +36,11 @@ function photoFactory(data) {
             media.setAttribute("autoplay", "");
             media.setAttribute("muted", "");
             media.setAttribute("loop", "");
+            media.setAttribute("class", 'gallery-item-img');
+            media.setAttribute("data-title", title);
+            media.setAttribute("alt", title);
+            media.setAttribute("src", mediaVideo);
+            media.setAttribute("data-type", 'video');
             media.appendChild(source);
         }
 
@@ -38,8 +51,10 @@ function photoFactory(data) {
         const h5 = document.createElement( 'h5' );
         h5.textContent = title;
 
-        const divlikes = document.createElement( 'div' );
-        divlikes.setAttribute('class', 'gallery-item-likes');
+        const divlikes = document.createElement( 'button' );
+        divlikes.setAttribute('class', 'gallery-item-likes btn-like light-button');
+        divlikes.setAttribute('data-like', '1');
+        divlikes.setAttribute('data-id', id);
 
         const counter = document.createElement( 'span' );
         counter.setAttribute('class', 'counter');
@@ -49,16 +64,13 @@ function photoFactory(data) {
         const imglike = document.createElement( 'img' );
         imglike.setAttribute("src", 'assets/icons/like.svg')
         imglike.setAttribute('alt', 'likes');
-        imglike.setAttribute('class', 'btn-like');
-        imglike.setAttribute('data-like', '1');
-        imglike.setAttribute('data-id', id);
-
 
         divlikes.appendChild(counter);
         divlikes.appendChild(imglike);
         informations.appendChild(h5);
         informations.appendChild(divlikes);
-        item.appendChild(media);
+        button.appendChild(media);
+        item.appendChild(button);
         item.appendChild(informations);
 
         return (item);
