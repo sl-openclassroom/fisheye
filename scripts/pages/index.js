@@ -7,7 +7,7 @@ async function getPhotographers() {
     // Penser à remplacer par les données récupérées dans le json
     let photographers = [];
 
-    await fetch('/data/photographers.json')
+    await fetch('/fisheye/data/photographers.json')
         .then(response => response.json())
         .then(function (data){
             photographers = data.photographers;
