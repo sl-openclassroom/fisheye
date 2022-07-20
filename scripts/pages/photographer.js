@@ -9,7 +9,7 @@ async function getPhotographer(id) {
     // Penser à remplacer par les données récupérées dans le json
     let photographers = [];
 
-    await fetch('http://localhost/fisheye/data/photographers.json')
+    await fetch('/data/photographers.json')
         .then(response => response.json())
         .then(function (data){
             photographers = data.photographers;
@@ -39,7 +39,7 @@ async function getPhotos() {
     // Penser à remplacer par les données récupérées dans le json
     let photos = [];
 
-    await fetch('http://localhost/fisheye/data/photographers.json')
+    await fetch('/data/photographers.json')
         .then(response => response.json())
         .then(function (data){
             photos = data.media;
