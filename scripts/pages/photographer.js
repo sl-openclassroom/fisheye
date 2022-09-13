@@ -45,8 +45,6 @@ async function getPhotos() {
             photos = data.media;
         });
 
-
-
     // et bien retourner le tableau photographers seulement une fois
     return ({
         photos: [...photos]
